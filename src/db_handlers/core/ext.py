@@ -1,4 +1,4 @@
-from db_handlers.db_manage import AsyncSessionLocal, engine
+from src.db_handlers.db_manage import AsyncSessionLocal, engine
 from sqlalchemy import text
 from models import Base
 

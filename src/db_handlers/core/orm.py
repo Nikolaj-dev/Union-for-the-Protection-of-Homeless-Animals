@@ -1,10 +1,11 @@
+import asyncio
 from datetime import datetime, timedelta
 from .models import Advertisement, Contact, Shelter, Animal
 from .services import retrieve_attributes, row_to_dict
 from sqlalchemy.future import select
 from typing import Type, Optional, Dict
-from db_handlers.core.models import Base
-from db_handlers.db_manage import AsyncSessionLocal
+from src.db_handlers.core.models import Base
+from src.db_handlers.db_manage import AsyncSessionLocal
 
 
 class BaseRepository:
@@ -143,3 +144,4 @@ class ShelterRepository(BaseRepository):
 class AnimalRepository(BaseRepository):
     def __init__(self):
         super().__init__(Animal)
+
