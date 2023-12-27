@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from .orm import AdvertisementRepository, ContactRepository, ShelterRepository, AnimalRepository
+from .orm import AdvertisementRepository, ShelterRepository, AnimalRepository
 
 
 @pytest.mark.asyncio_cooperative
@@ -62,56 +62,6 @@ async def test_advertisement_repository():
 
 
 @pytest.mark.asyncio_cooperative
-async def test_contact_repository():
-    # Initialize repository
-    repository = ContactRepository()
-
-    # Create a contact for testing
-    contact_data = {
-        "phone_number": "1234567890",
-        "telegram": "@test_telegram",
-        "instagram": "@test_instagram",
-        "twitter": "@test_twitter",
-        "website": "http://www.example.com",
-    }
-    await repository.create(**contact_data)
-
-    # Retrieve the contact by phone number
-    retrieved_contacts = await repository.filter_all({"phone_number": "1234567890"})
-
-    # Check if at least one contact is retrieved
-    assert len(retrieved_contacts) >= 1
-
-    # Check if the retrieved contact matches the created contact
-    retrieved_contact = retrieved_contacts[-1]
-    for key, value in contact_data.items():
-        assert retrieved_contact.get(key) == value
-
-    # Test retrieve_one method
-    retrieved_one = await repository.retrieve_one(retrieved_contact['pk'])
-    assert retrieved_one == retrieved_contact
-
-    # Test retrieve_all method
-    all_contacts = await repository.retrieve_all()
-    assert len(all_contacts) >= 1
-
-    # Test filter_all method
-    filtered_contacts = await repository.filter_all({"phone_number": "1234567890"})
-    assert len(filtered_contacts) >= 1
-
-    # Test update method
-    updated_data = {"telegram": "@updated_telegram"}
-    await repository.update(retrieved_contact['pk'], updated_data)
-    updated_contact = await repository.retrieve_one(retrieved_contact['pk'])
-    assert updated_contact["telegram"] == updated_data["telegram"]
-
-    # Test delete method
-    await repository.delete(retrieved_contact['pk'])
-    deleted_contact = await repository.retrieve_one(retrieved_contact['pk'])
-    assert "message" in deleted_contact and "not found" in deleted_contact["message"]
-
-
-@pytest.mark.asyncio_cooperative
 async def test_shelter_repository():
     repository = ShelterRepository()
 
@@ -119,7 +69,7 @@ async def test_shelter_repository():
     shelter_data = {
         "title": "Test Shelter",
         "address": "Test Location",
-        "contact_id": 1,  # Replace with a valid contact_id if needed
+        "phone_number": "+77005004455"
     }
     await repository.create(**shelter_data)
 
@@ -172,7 +122,7 @@ async def test_animal_repository():
         "age": 2,
         "species": "cat",  # Replace with a valid species value
         "since_time": datetime.now(),
-        "shelter_id": 1,  # Replace with a valid shelter_id if needed
+        "shelter_id": 4,  # Replace with a valid shelter_id if needed
     }
     await repository.create(**animal_data)
 

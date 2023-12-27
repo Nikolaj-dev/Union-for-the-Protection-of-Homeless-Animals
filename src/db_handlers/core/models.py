@@ -26,29 +26,17 @@ class Advertisement(Base):
         return str(self.title)
 
 
-class Contact(Base):
-    __tablename__ = "contacts"
-
-    pk: Mapped[intpk]
-    phone_number: Mapped[str] = mapped_column(String(13))
-    telegram: Mapped[str] = mapped_column(String(128), nullable=True)
-    instagram: Mapped[str] = mapped_column(String(128), nullable=True)
-    twitter: Mapped[str] = mapped_column(String(128), nullable=True)
-    website: Mapped[str] = mapped_column(String(256), nullable=True)
-    shelters = relationship('Shelter', back_populates='contacts')
-
-    def __repr__(self):
-        return str(self.phone_number)
-
-
 class Shelter(Base):
     __tablename__ = "shelters"
 
     pk: Mapped[intpk]
     title: Mapped[str128]
     address: Mapped[str] = mapped_column(String(512))
-    contact_id: Mapped[int] = mapped_column(ForeignKey('contacts.pk', ondelete='SET NULL'), nullable=True)
-    contacts = relationship('Contact', back_populates='shelters')
+    phone_number: Mapped[str] = mapped_column(String(13))
+    telegram: Mapped[str] = mapped_column(String(128), nullable=True)
+    instagram: Mapped[str] = mapped_column(String(128), nullable=True)
+    twitter: Mapped[str] = mapped_column(String(128), nullable=True)
+    website: Mapped[str] = mapped_column(String(256), nullable=True)
     animals = relationship('Animal', back_populates='shelters')
 
     def __repr__(self):

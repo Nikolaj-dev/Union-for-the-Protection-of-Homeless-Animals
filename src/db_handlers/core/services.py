@@ -50,4 +50,3 @@ async def row_to_dict(result):
         formatted_records.append(formatted_record)
 
     return formatted_records
-

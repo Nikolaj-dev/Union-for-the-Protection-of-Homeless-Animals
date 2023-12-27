@@ -1,6 +1,5 @@
-import asyncio
 from datetime import datetime, timedelta
-from .models import Advertisement, Contact, Shelter, Animal
+from .models import Advertisement, Shelter, Animal
 from .services import retrieve_attributes, row_to_dict
 from sqlalchemy.future import select
 from typing import Type, Optional, Dict
@@ -131,11 +130,6 @@ class AdvertisementRepository(BaseRepository):
                 return await row_to_dict(result) if result else {"message": "No advertisements."}
 
 
-class ContactRepository(BaseRepository):
-    def __init__(self):
-        super().__init__(Contact)
-
-
 class ShelterRepository(BaseRepository):
     def __init__(self):
         super().__init__(Shelter)
@@ -144,4 +138,3 @@ class ShelterRepository(BaseRepository):
 class AnimalRepository(BaseRepository):
     def __init__(self):
         super().__init__(Animal)
-
