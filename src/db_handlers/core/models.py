@@ -67,3 +67,7 @@ class Animal(Base):
     since_time: Mapped[str] = mapped_column(DateTime())
     shelter_id: Mapped[int] = mapped_column(ForeignKey('shelters.pk', ondelete='SET NULL'), nullable=True)
     shelters = relationship('Shelter', back_populates='animals')
+
+    def __repr__(self):
+        return str(self.name)
+    
