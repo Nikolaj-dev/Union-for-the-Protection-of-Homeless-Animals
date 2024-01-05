@@ -74,7 +74,7 @@ class BaseRepository:
                     return {"message": f"A new {self.model_type.__name__} created: {new_object}."}
                 except Exception as e:
                     print(e)
-                    return {"message": f"Database error!"}
+                    return {"error": f"Database error!"}
 
     async def delete(self, pk: int):
         """
