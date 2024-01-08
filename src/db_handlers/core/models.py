@@ -63,6 +63,7 @@ class Animal(Base):
     name: Mapped[str128]
     sex: Mapped[SexEnum]
     age: Mapped[int]
+    image_path: Mapped[str] = mapped_column(Text())
     species: Mapped[SpeciesEnum]
     since_time: Mapped[str] = mapped_column(DateTime())
     shelter_id: Mapped[int] = mapped_column(ForeignKey('shelters.pk', ondelete='SET NULL'), nullable=True)
@@ -70,4 +71,3 @@ class Animal(Base):
 
     def __repr__(self):
         return str(self.name)
-    

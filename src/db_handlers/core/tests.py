@@ -120,9 +120,10 @@ async def test_animal_repository():
         "name": "Test Animal",
         "sex": "female",  # Replace with a valid sex value
         "age": 2,
+        "image_path": "static/free_image.jpg",
         "species": "cat",  # Replace with a valid species value
         "since_time": datetime.now(),
-        "shelter_id": 4,  # Replace with a valid shelter_id if needed
+        "shelter_id": 3,  # Replace with a valid shelter_id if needed
     }
     await repository.create(**animal_data)
 
