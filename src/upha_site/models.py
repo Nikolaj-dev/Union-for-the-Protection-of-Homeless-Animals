@@ -1,7 +1,5 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import Optional
-from datetime import datetime
-from src.db_handlers.core.models import SexEnum, SpeciesEnum
 
 
 class ShelterCreate(BaseModel):
@@ -12,14 +10,3 @@ class ShelterCreate(BaseModel):
     instagram: Optional[str] = None
     twitter: Optional[str] = None
     website: Optional[str] = None
-
-
-class AnimalCreate(BaseModel):
-    name: str
-    sex: SexEnum
-    age: int
-    species: SpeciesEnum
-    since_time: datetime = Field(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    shelter_id: int
-
-

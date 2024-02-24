@@ -1,6 +1,6 @@
 from typing import Annotated
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import String, Text, DateTime, func, ForeignKey
+from sqlalchemy import String, Text, DateTime, func, ForeignKey, Boolean
 from enum import Enum
 
 
@@ -71,3 +71,18 @@ class Animal(Base):
 
     def __repr__(self):
         return str(self.name)
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    pk: Mapped[intpk]
+    first_name: Mapped[str128]
+    last_name: Mapped[str128]
+    login: Mapped[str]
+    password: Mapped[str128]
+    is_admin: Mapped[bool] = mapped_column(Boolean(), default=False)
+    registered_time: Mapped[current_time]
+
+    def __repr__(self):
+        return str(self.first_name + self.last_name)

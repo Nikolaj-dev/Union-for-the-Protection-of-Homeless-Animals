@@ -48,17 +48,17 @@ async def create_ad(title: str = Form(), body: str = Form(), file: UploadFile = 
         else:
             try:
                 # Upload the image
-                image_upload_result = await upload_image(file=file, generated_filename=generated_filename)
+                image_upload_result = await upload_image(
+                    file=file,
+                    folder="ads-images",
+                    generated_filename=generated_filename
+                )
 
                 if "error" in image_upload_result:
                     return image_upload_result
                 else:
                     # Create a new advertisement in the repository
-                    adv = await AdvertisementRepository().create(**{
-                        "title": title,
-                        "body": body,
-                        "image_path": f"static/ads-images/{generated_filename}"
-                    })
+                    adv = await AdvertisementRepository().create(**data)
 
                     if "error" in adv:
                         # If there's an error in advertisement creation, delete the uploaded image
@@ -67,10 +67,11 @@ async def create_ad(title: str = Form(), body: str = Form(), file: UploadFile = 
                     else:
                         return adv
             except Exception as ex:
-                logger.exception(f"An error occurred during ad creation: {ex}")
-                return {"error": "Internal error."}
+                await delete_image(f"static/ads-images/{generated_filename}")
+                logger.exception(f"{ex.add_note('An error occurred during ad creation')}")
+                return {"error": "An error occurred while uploading the image."}
     except Exception as ex:
-        logger.exception(f"An error occurred during ad creation: {ex}")
+        logger.exception(f"{ex.add_note('An error occurred during ad creation')}")
         return {"error": "Internal error."}
 
 

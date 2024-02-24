@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from .models import Advertisement, Shelter, Animal
+from .models import Advertisement, Shelter, Animal, User
 from .services import retrieve_attributes, row_to_dict
 from sqlalchemy.future import select
 from typing import Type, Optional, Dict
@@ -138,3 +138,8 @@ class ShelterRepository(BaseRepository):
 class AnimalRepository(BaseRepository):
     def __init__(self):
         super().__init__(Animal)
+
+
+class UserRepository(BaseRepository):
+    def __init__(self):
+        super().__init__(User)
